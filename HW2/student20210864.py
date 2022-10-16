@@ -22,10 +22,8 @@ for i in range(2, max_st + 1):
 
 result_dict = dict(sorted(dic.items(), reverse = True, key = lambda x:x[1]))
 
-print(result_dict)
 dict_keys = result_dict.keys()
 dict_keys = list(dict_keys)
-print(dict_keys)
 
 st_count = 1
 same_cnt = 0
