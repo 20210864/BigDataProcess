@@ -20,6 +20,7 @@ for i in range(2, max_st + 1):
     dic[i] = result
     ws.cell(row = i, column = 7, value = result)
 result_dict = dict(sorted(dic.items(), reverse = True, key = lambda x:x[1]))
+print(result_dict)
 st_cnt = 1
 dict_keys = list(result_dict.keys())
 score = list(result_dict.values())
