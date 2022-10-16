@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 
+from collections import defaultdict
 from openpyxl import load_workbook
 from openpyxl.utils import get_column_letter
 
@@ -21,50 +22,45 @@ for i in range(2, max_st + 1):
     ws.cell(row = i, column = 7, value = result)
 
 result_dict = dict(sorted(dic.items(), reverse = True, key = lambda x:x[1]))
-A_max = (max_st - 1) * 0.3
-B_max = (max_st - 1) * 0.4
-C_max = (max_st - 1) * 0.3
 st_cnt = 1
+print(result_dict)
 dict_keys = list(result_dict.keys())
 score = list(result_dict.values())
 A_st = list()
 B_st = list()
 C_st = list()
 same_dic = dict()
-same_keys = list()
+same_Akeys = list()
+same_Bkeys = list()
+same_Ckeys = list()
 i_same = 0
 i = 0
-same_dic['A'] = 0
-same_dic['B'] = 0
-same_dic['C'] = 0
+same_dic = defaultdict(list)
+A_same = list()
 while(st_cnt < max_st - 1):
     if result_dict[dict_keys[i]] in score[i+1:]:
         i_same = score.count(result_dict[dict_keys[i]])
-        if st_cnt - 1 + i_same <= A_max:
+        if st_cnt - 1 + i_same <= (max_st - 1) * 0.3:
             for k in range(st_cnt, st_cnt + i_same):
                 A_st.append(dict_keys[k - 1])
-                same_keys.append(dict_keys[k - 1])
-            same_dic['A'] = same_keys
+                same_Akeys.append(dict_keys[k - 1])
             same_dic[score[i]] = i_same
             st_cnt += 1
-        elif st_cnt - 1 + i_same <= max_st * 0.7:
+        elif st_cnt - 1 + i_same <= (max_st - 1) * 0.7:
             for k in range(st_cnt, st_cnt + i_same):
                 B_st.append(dict_keys[k - 1])
-                same_keys.append(dict_keys[k - 1])
-            same_dic['B'] = same_keys
+                same_Bkeys.append(dict_keys[k - 1])
             same_dic[score[i]] = i_same
         else:
             for k in range(st_cnt, st_cnt + i_same):
                 C_st.append(dict_keys[k - 1])
-                same_keys.append(dict_keys[k - 1])
-            same_dic['C'] = same_keys
+                same_Ckeys.append(dict_keys[k - 1])
             same_dic[score[i]] = i_same
-        same_keys.clear()
 
     else:
-        if st_cnt <= A_max:
+        if st_cnt <= (max_st - 1) * 0.3:
             A_st.append(dict_keys[i])
-        elif st_cnt <= A_max + B_max:
+        elif st_cnt <= (max_st - 1) * 0.7:
             B_st.append(dict_keys[i])
         else:
             C_st.append(dict_keys[i])
@@ -73,12 +69,10 @@ while(st_cnt < max_st - 1):
 
 st_cnt = 1
 i = 0
-a_list = same_dic['A']
-b_list = same_dic['B']
-c_list = same_dic['C']
 while(st_cnt <= len(A_st)):
-    if str(A_st[i]) in str(a_list):
-        s_cnt = same_dic[A_st[i]]
+    if str(A_st[i]) in str(same_Akeys):
+        s_cnt = score.count(result_dict[A_st[i]])
+        print("s_cnt:", s_cnt)
         if s_cnt + st_cnt <= len(A_st) * 0.5:
             for a in range(s_cnt):
                 ws.cell(row = A_st[i], column = 8, value = "A+")
@@ -96,8 +90,8 @@ while(st_cnt <= len(A_st)):
 st_cnt = 1
 i = 0
 while(st_cnt <= len(B_st)):
-    if str(B_st[i]) in str(b_list):
-        s_cnt = same_dic[B_st[i]].value
+    if str(B_st[i]) in str(same_Bkeys):
+        s_cnt = score.count(result_dict[B_st[i]])
         if s_cnt + st_cnt <= len(B_st) * 0.5:
             for a in range(s_cnt):
                 ws.cell(row = B_st[i], column = 8, value = "B+")
@@ -115,8 +109,8 @@ while(st_cnt <= len(B_st)):
 st_cnt = 1
 i = 0
 while(st_cnt <= len(C_st)):
-    if str(C_st[i]) in str(c_list):
-        s_cnt = same_dic[C_st[i]].value
+    if str(C_st[i]) in str(same_Ckeys):
+        s_cnt = score.count(result_dict[C_st[i]])
         if s_cnt + st_cnt <= len(C_st) * 0.5:
             for a in range(s_cnt):
                 ws.cell(row = C_st[i], column = 8, value = "C+")
