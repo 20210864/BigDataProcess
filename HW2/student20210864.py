@@ -56,31 +56,31 @@ for i in range(max_st - 1):
     else:
         break
 
-    if st_count <= max_st * 0.15:
+    if st_count <= (max_st - 1) * 0.15:
         if same_isit == 1:
             for k in range(same1, same2):
                 ws.cell(row = dict_keys[k - 1], column = 8, value = "A+")
         ws.cell(row = dict_keys[i], column = 8, value = "A+")
 
-    elif max_st * 0.15 < st_count <= max_st * 0.3:
+    elif (max_st - 1) * 0.15 < st_count <= (max_st - 1) * 0.3:
         if same_isit == 1:
             for k in range(same1, same2):
                 ws.cell(row = dict_keys[k - 1], column = 8, value = "A0")
         ws.cell(row = dict_keys[i], column = 8, value = "A0")
 
-    elif max_st * 0.3 < st_count <= max_st * 0.5:
+    elif (max_st - 1) * 0.3 < st_count <= (max_st - 1) * 0.5:
         if same_isit == 1:
             for k in range(same1, same2):
                 ws.cell(row = dict_keys[k - 1], column = 8, value = "B+")
         ws.cell(row = dict_keys[i], column = 8, value = "B+")
 
-    elif max_st * 0.5 < st_count <= max_st * 0.7:
+    elif (max_st - 1) * 0.5 < st_count <= (max_st - 1) * 0.7:
         if same_isit == 1:
             for k in range(same1, same2):
                 ws.cell(row = dict_keys[k - 1], column = 8, value = "B0")
         ws.cell(row = dict_keys[i], column = 8, value = "B0")
 
-    elif max_st * 0.7 < st_count <= max_st * 0.85:
+    elif (max_st - 1) * 0.7 < st_count <= (max_st - 1) * 0.85:
         if same_isit == 1:
             for k in range(same1, same2):
                 ws.cell(row = dict_keys[k - 1], column = 8, value = "C+")
