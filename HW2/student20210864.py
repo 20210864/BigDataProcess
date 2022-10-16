@@ -21,11 +21,10 @@ for i in range(2, max_st + 1):
     ws.cell(row = i, column = 7, value = result)
 
 result_dict = dict(sorted(dic.items(), reverse = True, key = lambda x:x[1]))
-A_max = max_st * 0.3
-B_max = max_st * 0.4
-C_max = max_st * 0.3
+A_max = (max_st - 1) * 0.3
+B_max = (max_st - 1) * 0.4
+C_max = (max_st - 1) * 0.3
 st_cnt = 1
-
 dict_keys = list(result_dict.keys())
 score = list(result_dict.values())
 A_st = list()
@@ -41,22 +40,23 @@ same_dic['C'] = 0
 while(st_cnt < max_st - 1):
     if result_dict[dict_keys[i]] in score[i+1:]:
         i_same = score.count(result_dict[dict_keys[i]])
-        if st_cnt + i_same <= A_max:
+        if st_cnt - 1 + i_same <= A_max:
             for k in range(st_cnt, st_cnt + i_same):
-                A_st.append(dict_keys[k])
-                same_keys.append(dict_keys[k])
+                A_st.append(dict_keys[k - 1])
+                same_keys.append(dict_keys[k - 1])
             same_dic['A'] = same_keys
             same_dic[score[i]] = i_same
-        elif st_cnt + i_same <= max_st * 0.7:
+            st_cnt += 1
+        elif st_cnt - 1 + i_same <= max_st * 0.7:
             for k in range(st_cnt, st_cnt + i_same):
-                B_st.append(dict_keys[k])
-                same_keys.append(dict_keys[k])
+                B_st.append(dict_keys[k - 1])
+                same_keys.append(dict_keys[k - 1])
             same_dic['B'] = same_keys
             same_dic[score[i]] = i_same
         else:
             for k in range(st_cnt, st_cnt + i_same):
-                C_st.append(dict_keys[s])
-                same_keys.append(dict_keys[k])
+                C_st.append(dict_keys[k - 1])
+                same_keys.append(dict_keys[k - 1])
             same_dic['C'] = same_keys
             same_dic[score[i]] = i_same
         same_keys.clear()
@@ -70,12 +70,13 @@ while(st_cnt < max_st - 1):
             C_st.append(dict_keys[i])
     i = st_cnt
     st_cnt += 1
+
 st_cnt = 1
 i = 0
 a_list = same_dic['A']
 b_list = same_dic['B']
 c_list = same_dic['C']
-while(st_cnt < len(A_st)):
+while(st_cnt <= len(A_st)):
     if str(A_st[i]) in str(a_list):
         s_cnt = same_dic[A_st[i]]
         if s_cnt + st_cnt <= len(A_st) * 0.5:
@@ -94,7 +95,7 @@ while(st_cnt < len(A_st)):
     st_cnt += 1
 st_cnt = 1
 i = 0
-while(st_cnt < len(B_st)):
+while(st_cnt <= len(B_st)):
     if str(B_st[i]) in str(b_list):
         s_cnt = same_dic[B_st[i]].value
         if s_cnt + st_cnt <= len(B_st) * 0.5:
@@ -113,7 +114,7 @@ while(st_cnt < len(B_st)):
     st_cnt += 1
 st_cnt = 1
 i = 0
-while(st_cnt < len(C_st)):
+while(st_cnt <= len(C_st)):
     if str(C_st[i]) in str(c_list):
         s_cnt = same_dic[C_st[i]].value
         if s_cnt + st_cnt <= len(C_st) * 0.5:
