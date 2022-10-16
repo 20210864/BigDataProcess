@@ -16,7 +16,7 @@ for i in range(2, max_st + 1):
     final = ws.cell(row = i, column = 4).value
     hw = ws.cell(row = i, column = 5).value
     attendance = ws.cell(row = i, column = 6).value
-    result = float(midterm*0.3 + final*0.35 + hw*0.34 + attendance*0.01)
+    result = float(midterm*0.3 + final*0.35 + hw*0.34 + attendance*1)
     dic[i] = result
     ws.cell(row = i, column = 7, value = result)
 
