@@ -20,7 +20,6 @@ for i in range(2, max_st + 1):
     dic[i] = result
     ws.cell(row = i, column = 7, value = result)
 result_dict = dict(sorted(dic.items(), reverse = True, key = lambda x:x[1]))
-print(result_dict)
 st_cnt = 1
 dict_keys = list(result_dict.keys())
 score = list(result_dict.values())
@@ -34,33 +33,32 @@ same_Ckeys = list()
 i_same = 0
 i = 0
 A_same = list()
-print(dict_keys)
 while(st_cnt < max_st - 1):
+    now_st = 0
     if result_dict[dict_keys[i]] in score[i+1:]:
-        print("같을때:",result_dict[dict_keys[i]])
         i_same = score.count(result_dict[dict_keys[i]])
-        print(i_same)
         if st_cnt - 1 + i_same <= (max_st - 1) * 0.3:
-            for k in range(st_cnt, st_cnt + i_same):
+            now_st = st_cnt
+            for k in range(now_st, now_st + i_same):
                 A_lst.append(dict_keys[k - 1])
                 same_Akeys.append(dict_keys[k - 1])
-                if k+1 != st_cnt + i_same:
+                if k+1 != now_st + i_same:
                     st_cnt += 1
-                print("who:", dict_keys[k-1])
             same_dic[score[i]] = i_same
         elif (max_st - 1) * 0.3 < st_cnt - 1 + i_same <= (max_st - 1) * 0.7:
-            for k in range(st_cnt, st_cnt + i_same):
-                B_lst.append(dict_keys[k - 2])
-                same_Bkeys.append(dict_keys[k - 2])
-                if k + 1 != st_cnt + i_same:
+            now_st = st_cnt
+            for k in range(now_st, now_st + i_same):
+                B_lst.append(dict_keys[k - 1])
+                same_Bkeys.append(dict_keys[k - 1])
+                if k + 1 != now_st + i_same:
                     st_cnt += 1
-                print("who:",dict_keys[k-2], k, "st", st_cnt)
             same_dic[score[i]] = i_same
         else:
-            for k in range(st_cnt, st_cnt + i_same):
-                C_lst.append(dict_keys[k - 3])
-                same_Ckeys.append(dict_keys[k - 3])
-                if k + 1 != st_cnt + i_same:
+            now_st = st_cnt
+            for k in range(now_st, now_st + i_same):
+                C_lst.append(dict_keys[k - 1])
+                same_Ckeys.append(dict_keys[k - 1])
+                if k + 1 != now_st + i_same:
                     st_cnt += 1
             same_dic[score[i]] = i_same
 
@@ -87,20 +85,23 @@ for i in B_lst:
 for i in C_lst:
     if i not in C_st:
         C_st.append(i)
-
 st_cnt = 1
 i = 0
 while(st_cnt <= len(A_st)):
-    if str(A_st[i]) in str(same_Akeys):
+    if A_st[i] in same_Akeys:
         s_cnt = score.count(result_dict[A_st[i]])
         if s_cnt + st_cnt - 1<= len(A_st) * 0.5:
             for a in range(s_cnt):
                 ws.cell(row = A_st[i], column = 8, value = "A+")
-                st_cnt += 1
+                if a + 1 != s_cnt:
+                    st_cnt += 1
+                    i += 1
         else:
             for a in range(s_cnt):
                 ws.cell(row = A_st[i], column = 8, value = "A0")
-        st_cnt += s_cnt
+                if a+1 != s_cnt:
+                    st_cnt += 1 
+                    i += 1
     else:
         if st_cnt <= len(A_st) * 0.5:
             ws.cell(row = A_st[i], column = 8, value = "A+")
@@ -111,16 +112,20 @@ while(st_cnt <= len(A_st)):
 st_cnt = 1
 i = 0
 while(st_cnt <= len(B_st)):
-    if str(B_st[i]) in str(same_Bkeys):
+    if B_st[i] in same_Bkeys:
         s_cnt = score.count(result_dict[B_st[i]])
         if s_cnt + st_cnt - 1 <= len(B_st) * 0.5:
             for a in range(s_cnt):
                 ws.cell(row = B_st[i], column = 8, value = "B+")
-                st_cnt += 1
+                if a + 1 != s_cnt:
+                    st_cnt += 1
+                    i += 1
         else:
             for a in range(s_cnt):
                 ws.cell(row = B_st[i], column = 8, value = "B0")
-        st_cnt += s_cnt
+                if a + 1 != s_cnt:
+                    st_cnt += 1
+                    i += 1
     else:
         if st_cnt <= len(B_st) * 0.5:
             ws.cell(row = B_st[i], column = 8, value = "B+")
@@ -131,16 +136,20 @@ while(st_cnt <= len(B_st)):
 st_cnt = 1
 i = 0
 while(st_cnt <= len(C_st)):
-    if str(C_st[i]) in str(same_Ckeys):
+    if C_st[i] in same_Ckeys:
         s_cnt = score.count(result_dict[C_st[i]])
         if s_cnt + st_cnt - 1 <= len(C_st) * 0.5:
             for a in range(s_cnt):
                 ws.cell(row = C_st[i], column = 8, value = "C+")
-                st_cnt += 1
+                if a + 1 != s_cnt:
+                    st_cnt += 1
+                    i += 1
         else:
             for a in range(s_cnt):
                 ws.cell(row = C_st[i], column = 8, value = "C0")
-        st_cnt += s_cnt
+                if a + 1 != s_cnt:
+                    st_cnt += 1
+                    i += 1
     else:
         if st_cnt <= len(C_st) * 0.5:
             ws.cell(row = C_st[i], column = 8, value = "C+")
