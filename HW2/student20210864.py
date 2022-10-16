@@ -28,7 +28,6 @@ dict_keys = list(dict_keys)
 print(dict_keys)
 
 st_count = 1
-count = 0
 same_cnt = 0
 same_isit = 0
 same1 = 0
