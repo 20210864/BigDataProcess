@@ -72,7 +72,7 @@ i = 0
 while(st_cnt < len(A_st)):
     if A_st[i] in same_dic['A']:
         s_cnt = same_dic[A_st[i]].value
-        if s_cnt + st_cnt <= A_max * 0.5:
+        if s_cnt + st_cnt <= len(A_st) * 0.5:
             for a in range(s_cnt):
                 ws.cell(row = A_st[i], column = 8, value = "A+")
         else:
@@ -80,7 +80,7 @@ while(st_cnt < len(A_st)):
                 ws.cell(row = A_st[i], column = 8, value = "A0")
         st_cnt += s_cnt
     else:
-        if st_cnt <= A_max * 0.5:
+        if st_cnt <= len(A_st) * 0.5:
             ws.cell(row = A_st[i], column = 8, value = "A+")
         else:
             ws.cell(row = A_st[i], column = 8, value = "A0")
@@ -91,7 +91,7 @@ i = 0
 while(st_cnt < len(A_st + B_st)):
     if B_st[i] in same_dic['B']:
         s_cnt = same_dic[B_st[i]].value
-        if s_cnt + st_cnt <= A_max + B_max * 0.5:
+        if s_cnt + st_cnt <= len(A_max + B_max) * 0.5:
             for a in range(s_cnt):
                 ws.cell(row = B_st[i], column = 8, value = "B+")
         else:
@@ -99,7 +99,7 @@ while(st_cnt < len(A_st + B_st)):
                 ws.cell(row = B_st[i], column = 8, value = "B0")
         st_cnt += s_cnt
     else:
-        if st_cnt <= A_max + B_max * 0.5:
+        if st_cnt <= len(A_max + B_max) * 0.5:
             ws.cell(row = B_st[i], column = 8, value = "B+")
         else:
             ws.cell(row = B_st[i], column = 8, value = "B0")
@@ -110,7 +110,7 @@ i = 0
 while(st_cnt < len(A_st + B_st + C_st)):
     if C_st[i] in same_dic['C']:
         s_cnt = same_dic[C_st[i]].value
-        if s_cnt + st_cnt <= A_max + B_max + C_max * 0.5:
+        if s_cnt + st_cnt <= len(A_max + B_max + C_max) * 0.5:
             for a in range(s_cnt):
                 ws.cell(row = C_st[i], column = 8, value = "C+")
         else:
@@ -118,7 +118,7 @@ while(st_cnt < len(A_st + B_st + C_st)):
                 ws.cell(row = C_st[i], column = 8, value = "C0")
         st_cnt += s_cnt
     else:
-        if st_cnt <= A_max + B_max + C_max * 0.5:
+        if st_cnt <= len(A_max + B_max + C_max) * 0.5:
             ws.cell(row = C_st[i], column = 8, value = "C+")
         else:
             ws.cell(row = C_st[i], column = 8, value = "C0")
