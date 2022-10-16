@@ -8,7 +8,6 @@ dest_filename = 'student.xlsx'
 ws = wb.active
 ws.title = "Sheet1"
 
-
 dic = dict()
 max_st = ws.max_row
 
