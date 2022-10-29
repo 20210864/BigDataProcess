@@ -46,4 +46,4 @@ def uberInfo(file1, file2):
     f.close()
 
 a, b = input().split()
-uberInfo(a, b)
+uberInfo(a, b) 
