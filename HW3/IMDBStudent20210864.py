@@ -6,34 +6,41 @@ def countGenre(file1, file2):
     genre = list()
     gcnt = list()
     result = dict()
-    count = 0
 
     rows = ip.split('\n')
     for row in rows:
         fields = row.split("::")
-        if "|" in fields[2]:
-            field = fields[2].split("|")
-            for j in field:
-                if j not in genre:
-                    genre.append(j)
-        else:
-            if fields[2] not in genre:
-                genre.append(fields[2])
+        cnt = 0
+        for i in fields:
+            if cnt == 2:
+                if "|" in i:
+                    field = i.split("|")
+                    for j in field:
+                        if j not in genre:
+                            genre.append(j)
+                else:
+                    if i not in genre:
+                        genre.append(i)
+            cnt += 1
 
-    for i in genre:
+    for g in genre:
+        count = 0
         for row in rows:
             fields = row.split("::")
-            if "|" in fields[2]:
-                field = fields[2].split("|")
-                for j in field:
-                    if j == i:
-                        count += 1
+            cnt = 0
+            for i in fields:
+                if cnt == 2:
+                    if "|" in i:
+                        field = i.split("|")
+                        for j in field:
+                            if j == g:
+                                count += 1
 
-            else:
-                if fields == i:
-                    count += 1
-
-        result[i] = count
+                    else:
+                        if i == g:
+                            count += 1
+                cnt += 1
+        result[g] = count
 
     f = open(file2, "wt")
     for key, value in result.items():
@@ -48,9 +55,6 @@ def countGenre(file1, file2):
     ip = f.read()
     f.close()
     rows = ip.split('\n')
-
-    for row in rows:
-        print(row)
 
 a, b = input().split()
 countGenre(a, b)
