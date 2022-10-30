@@ -1,3 +1,4 @@
+import sys
 def uberInfo(file1, file2):
     from datetime import datetime, date
 
@@ -45,5 +46,5 @@ def uberInfo(file1, file2):
 
     f.close()
 
-a, b = input().split()
-uberInfo(a, b) 
+a, b, c = sys.argv
+uberInfo(b, c) 

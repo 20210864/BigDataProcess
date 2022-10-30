@@ -1,3 +1,4 @@
+import sys
 def countGenre(file1, file2):
     f = open(file1, "rt")
     ip = f.read()
@@ -56,5 +57,5 @@ def countGenre(file1, file2):
     f.close()
     rows = ip.split('\n')
 
-a, b = input().split()
-countGenre(a, b)
+a, b, c = sys.argv
+countGenre(b, c)
