@@ -31,46 +31,25 @@ def uberInfo(file1, file2):
         d = int(a[1])
         day = date(year, mon, d).weekday()
         uList.append([f1, days[day], f3, f4])
-
-    region = [i[0] for i in uList]
-    region = set(region)
-
-    for r in region:
-        c = []
-        for u in uList:
-            if r == u[0]:
-                c.append(u[1])
-        c = list(set(c))
-        uDict[r] = c
-
-    result = list()
-
-    for ud in uDict:
-        for uv in uDict[ud]:
-            vehicles = 0
-            trips = 0
-            for i in uList:
-                if ud == i[0] and uv == i[1]:
-                    vehicles += int(i[2])
-                    trips += int(i[3])
-
-            result.append([ud, uv, vehicles, trips])
+        key = f1 + "," + days[day]
+        if key not in uDict:
+            value = f3 + "," + f4
+            uDict[key] = value
+        else:
+            val3, val4 = uDict[key].split(",")
+            v3 = int(val3)
+            v4 = int(val4)
+            v3 += int(f3)
+            v4 += int(f4)
+            value = str(v3) + "," + str(v4)
+            uDict[key] = value
 
     f = open(file2, "wt")
-    cnt = 0
-    for row in rows:
-        for frr in result:
-            fc = 0
-            for fr in frr:
-                f.write(str(fr))
-                if fc == 1:
-                    f.write(" ")
-                elif fc == 3:
-                    f.write("\n")
-                else:
-                    f.write(",")
-                fc += 1
-        cnt += 1
+    for k, v in uDict.items():
+        f.write(k)
+        f.write(" ")
+        f.write(v)
+        f.write("\n")
 
     f.close()
 
