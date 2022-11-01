@@ -45,12 +45,14 @@ def uberInfo(file1, file2):
             uDict[key] = value
 
     f = open(file2, "wt")
-    for k, v in uDict.items():
+    c = 0
+    for k in uDict:
         f.write(k)
         f.write(" ")
-        f.write(v)
-        f.write("\n")
-
+        f.write(uDict[k])
+        if c != 41:
+            f.write("\n")
+        c += 1
     f.close()
 
 a, b, c = sys.argv
