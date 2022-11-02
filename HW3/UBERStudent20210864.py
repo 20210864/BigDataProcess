@@ -12,7 +12,6 @@ def uberInfo(file1, file2):
     days = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN']
 
     for row in rows:
-        row = row.strip()
         fields = row.split(",")
         count = 0
         for i in fields:
@@ -46,8 +45,14 @@ def uberInfo(file1, file2):
             uDict[key] = value
 
     f = open(file2, "wt")
+    c = 0
     for k in uDict:
-        f.write(k + " " + uDict[k] + '\n')
+        f.write(k)
+        f.write(" ")
+        f.write(uDict[k])
+        if c != 41:
+            f.write("\n")
+        c += 1
     f.close()
 
 a, b, c = sys.argv
