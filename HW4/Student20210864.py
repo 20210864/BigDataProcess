@@ -61,7 +61,7 @@ def hwClassifier(training, test):
                 error += 1
             b+=1
         errorRate = error/s*100
-        print("K=", k, "일 때는 ", errorRate, "%")
+        print(int(errorRate))
 
 
 hwClassifier("trainingDigits", "testDigits")
